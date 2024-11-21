@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='images/chatbot.jpg') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+    <title>Sanjeevani Symptom Form</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label }}<br>
+                {{ form.name(size=32) }}
+            </div>
+            <div class="form-group">
+                {{ form.age.label }}<br>
+                {{ form.age(size=32) }}
+            </div>
+            <div class="form-group">
+                {{ form.gender.label }}<br>
+                {{ form.gender(size=32) }}
+            </div>
+            <div class="form-group">
+                {{ form.symptoms.label }}<br>
+                {{ form.symptoms(rows=4, cols=50) }}
+            </div>
+            <div class="form-group">
+                {{ form.start.label }}<br>
+                {{ form.start(size=32) }}
+            </div>
+            <div class="form-group">
+                {{ form.changes.label }}<br>
+                {{ form.changes(rows=4, cols=50) }}
+            </div>
+            <div class="form-group">
+                {{ form.factors.label }}<br>
+                {{ form.factors(rows=4, cols=50) }}
+            </div>
+            <div class="form-group">
+                {{ form.medications.label }}<br>
+                {{ form.medications(rows=4, cols=50) }}
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
