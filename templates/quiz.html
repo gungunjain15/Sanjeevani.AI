@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assessment Quiz</title>
+    <link rel="stylesheet" href="loader.css">
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: var(--mint-cream);
+        text-align: center;
+        font-family: "Arial", sans-serif;
+        background-image: url("../static/images/quizcover.png");
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --mint-cream: #f5fff0;
+        --jungle-green: #29a745;
+        --forest-green: #216b2d;
+        --lime-green: #32cd32;
+        --sage: #b6d5c3;
+        --olive-drab: #556b2f;
+        --spring-green: #00ff7f;
+        --pale-green: #98fb98;
+        --dark-olive: #556b2f;
+      }
+      #quiz-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: var(--mint-cream);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .question {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: var(--forest-green);
+      }
+      .question:hover {
+        color: var(--lime-green);
+        font-size: 20px;
+        transition: font-size 0.5s;
+      }
+      .options {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .option {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 2px solid var(--lime-green);
+        border-radius: 5px;
+        transition: background-color 0.5s ease;
+        color: var(--dark-olive);
+      }
+
+      .option:hover {
+        background-color: var(--lime-green);
+        color: #fff;
+        font-size: 18px;
+        border: 3px solid var(--lime-green);
+      }
+      .resetButton {
+        color: var(--forest-green);
+        background-color: var(--mint-cream);
+      }
+
+      #progress-container {
+        margin-top: 20px;
+        height: 10px;
+        background-color: var(--sage);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      #progress-bar {
+        height: 100%;
+        background-color: var(--forest-green);
+        transition: width 0.5s ease;
+      }
+      #result {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--jungle-green);
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        padding: 5px;
+        color: var(--dark-olive);
+        z-index: 1000;
+      }
+
+      .logo img {
+        width: 60px;
+        border-radius: 50%;
+        margin-left: 30px;
+      }
+
+      .navbar {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar a {
+        font-size: 18px;
+        color: var(--forest-green);
+        text-decoration: none;
+        transition: color 0.5s;
+      }
+
+      .navbar a:hover {
+        color: var(--lime-green);
+        text-decoration: none;
+        transform: translateY(-3px);
+      }
+
+      .consult-btn,
+      .contact-btn {
+        background-color: var(--forest-green);
+        color: #f5fff0;
+        padding: 10px 20px;
+        border: 1px solid var(--olive-drab);
+        border-radius: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .consult-btn:hover,
+      .contact-btn:hover {
+        background-color: var(--lime-green);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav id="navbar">
+        <ul class="nav-buffer">
+        </ul>
+        <ul class="navbar-list"> 
+            <li><a  href="loader.html">Home</a></li>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="BMI_calculator.html">BMI Calculator</a></li>
+          <li><a href="telemedicine.html">Telemedicine</a></li>
+            <li><a href="resourcepage.html">Resources</a></li>
+          <!-- <li><a href="faq.html">FAQ</a></li> -->
+        </ul>
+      </nav>
+    <div id="quiz-container">
+      <div id="question" class="question"></div>
+      <div id="options" class="options"></div>
+      <div id="result"></div>
+      <button id="resetButton" onclick="resetQuiz()">Reset Quiz</button>
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div id="bg-image"></div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "Do you have little interest or pleasure in doing things?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question: "Feeling down, depressed, or hopeless?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question: "Trouble falling or staying asleep, or sleeping too much?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question: " Feeling tired or having little energy?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question: "Poor appetite or overeating?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question:
+            "Feeling bad about yourself - or that you are a failure or have let yourself or your family down?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question:
+            "Trouble concentrating on things, such as reading the newspaper or watching television?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question:
+            "Moving or speaking so slowly that other people could have noticed Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question:
+            "Thoughts that you would be better off dead, or of hurting yourself?",
+          options: [
+            "Not at all",
+            "Several days",
+            "More than half the days",
+            "Nearly every day",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+        {
+          question:
+            "If you checked off any problems, how difficult have these problems made it for you at work, home, or with other people?",
+          options: [
+            "Not difficult at all",
+            "Somewhat difficult",
+            "Very difficult",
+            "Extremely difficult",
+          ],
+          scores: [0, 1, 2, 3],
+        },
+      ];
+
+      let currentQuestion = 0;
+      let userScores = Array(questions.length).fill(0);
+      const questionElement = document.getElementById("question");
+      const optionsElement = document.getElementById("options");
+      const resultElement = document.getElementById("result");
+      const resetButton = document.getElementById("resetButton");
+      const progressBar = document.getElementById("progress-bar");
+      const resultImages = document.getElementById("result-images");
+
+      function loadQuestion() {
+        const question = questions[currentQuestion];
+        questionElement.textContent = question.question;
+
+        optionsElement.innerHTML = "";
+        for (let i = 0; i < question.options.length; i++) {
+          const option = document.createElement("div");
+          option.className = "option";
+          option.textContent = question.options[i];
+          option.addEventListener("click", () => answerQuestion(i));
+          option.addEventListener("click", () => nextQuestion());
+          optionsElement.appendChild(option);
+        }
+        const progressPercentage =
+          (currentQuestion / (questions.length - 1)) * 100;
+        progressBar.style.width = `${progressPercentage}%`;
+      }
+
+      function answerQuestion(answerIndex) {
+        userScores[currentQuestion] =
+          questions[currentQuestion].scores[answerIndex];
+      }
+      function resetQuiz() {
+        currentQuestion = 0;
+        userScores = Array(questions.length).fill(0);
+        changeQuestion();
+        resultElement.textContent = "";
+        resetButton.style.display = "none";
+        resultElement.textContent = "";
+        resetButton.style.display = "none";
+        progressBar.style.width = "0%";
+      }
+      function showResult() {
+        let resultimagesrc = "";
+        const totalScore = userScores.reduce((sum, score) => sum + score, 0);
+        resultElement.textContent = "You have";
+
+        // Categorize mental well-being based on total score
+        if (totalScore < (questions.length * 3) / 4) {
+          resultElement.textContent += "\nNormal mental well-being.";
+        } else if (totalScore < (questions.length * 3) / 2) {
+          resultElement.textContent += "\nModerate mental well-being.";
+        } else if (totalScore < (questions.length * 3 * 3) / 4) {
+          resultElement.textContent +=
+            "\nConcerning mental well-being. Consider seeking support.";
+          showHelplineNumber();
+        } else {
+          resultElement.textContent +=
+            "\nCritical mental well-being. Please seek immediate assistance.";
+          showHelplineNumber();
+        }
+
+        resetButton.style.display = "block";
+      }
+
+      function showHelplineNumber() {
+        resultElement.innerHTML +=
+          '<br>Contact a mental health helpline: <a href="https://telemanas.mohfw.gov.in/#/home" target="_blank">1-800 891 4416</a>';
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+          currentQuestion++;
+          loadQuestion();
+        } else {
+          showResult();
+        }
+      }
+      loadQuestion();
+    </script>
+  </body>
+</html>

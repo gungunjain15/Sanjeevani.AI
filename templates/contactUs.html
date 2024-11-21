@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/contactUs.css">
+    <link rel="stylesheet" href="../static/css/loader.css">
+    <title>Contact Us</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <ul class="nav-buffer">
+        </ul>
+        <ul class="navbar-list"> 
+            <li><a  href="loader.html">Home</a></li>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="BMI_calculator.html">BMI Calculator</a></li>
+          <li><a href="telemedicine.html">Telemedicine</a></li>
+            <li><a href="resourcepage.html">Resources</a></li>
+        <!-- <li><a href="faq.html">FAQ</a></li> -->
+        </ul>
+      </nav>
+
+
+
+    <div class="page">
+
+
+        <h1 class="contact">Contact Us</h1>
+
+    </div>
+    <h2>Have questions or suggestions? Reach out to our team:</h2>
+    <p class="questions">
+    </p>
+
+
+    <section class="content">
+
+        <div class="contact-info">
+            <div class="photo">
+
+                <img src="images/sourav.jpg" alt="sourav" id="sourav">
+            </div>
+            <div class="details">
+                <a href="https://github.com/sourav-pandey-dev" target="_blank"><img
+                        src="images/GitHub-Mark-ea2971cee799.png" alt="GitHub Logo"></a>
+
+                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new" class="composeLink" data-email="programmerxsourav@gmail.com">
+                    <img src="images/emaillogo.png" alt="Email Logo 2">
+                </a>
+
+                <a href="https://www.linkedin.com/in/sourav-tech/" target="_blank"><img src="images/download.png" alt="linkedin logo"></a>
+            </div>
+        </div>
+
+
+        <div class="contact-info">
+            <div class="photo">
+
+                <img src="images/asmit.jpeg" alt="asmit" id="asmit">
+            </div>
+            <div class="details">
+
+                <a href="https://github.com/ASMIT136" target="_blank"><img src="images/GitHub-Mark-ea2971cee799.png"
+                        alt="GitHub Logo"></a>
+
+                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new" class="composeLink" data-email="asmitgupta678@gmail.com">
+                    <img src="images/emaillogo.png" alt="Email Logo 1">
+                </a>
+
+                <a href="https://www.linkedin.com/in/asmit-gupta-371711272" target="_blank"><img
+                        src="images/download.png" alt="linkedin logo"></a>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="photo">
+
+                <img src="images/ritwik.jpeg" alt="ritwik" id="ritwik">
+            </div>
+            <div class="details">
+
+                <a href="https://github.com/Ritwik1607" target="_blank"><img src="images/GitHub-Mark-ea2971cee799.png"
+                        alt="GitHub Logo"></a>
+
+                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new" class="composeLink" data-email="ritwik1607@gmail.com">
+                    <img src="images/emaillogo.png" alt="Email Logo 3">
+                </a>
+
+                <a href="https://www.linkedin.com/in/ritwik-chandra-7a6901214/" target="_blank"><img src="images/download.png"
+                        alt="linkedin logo"></a>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="photo">
+
+                <img src="images/sanskar.jpeg" alt="sanskar" id="sanskar">
+            </div>
+            <div class="details">
+
+                <a href="https://github.com/sanskarshukla003" target="_blank"><img
+                        src="images/GitHub-Mark-ea2971cee799.png" alt="GitHub Logo"></a>
+
+                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new" class="composeLink" data-email="shuklasanskar003@gmail.com">
+                    <img src="images/emaillogo.png" alt="Email Logo 4">
+                </a>
+
+                <a href="https://www.linkedin.com/in/sanskar-shukla-5b520214b" target="_blank"><img
+                        src="images/download.png" alt="linkedin logo"></a>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+        document.querySelectorAll('.composeLink').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var emailAddress = this.getAttribute('data-email');
+                var subject = 'Your email subject here';
+                var body = 'Your email body here';
+
+                var mailtoLink = 'mailto:' + emailAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+                window.open(mailtoLink, '_blank');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

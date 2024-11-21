@@ -35,3 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(nextSlide, 3000); 
 });
 
+
+document.getElementById("myButton").addEventListener("click", function () {
+    // Open the link in a new tab or window
+    window.open("/templates/quiz.html");
+});
