@@ -4,5 +4,5 @@ class Config:
     MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
-    MAIL_USERNAME = 'your_gmail_adress_here'
-    MAIL_PASSWORD = 'your_gmail_app_password_here'
+    MAIL_USERNAME = 'gungun.2226cs1014@kiet.edu'
+    MAIL_PASSWORD = 'Gungun@03jain'

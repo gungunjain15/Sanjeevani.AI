@@ -68,6 +68,7 @@ def create_report_pdf(name, age, gender, symptoms, start, changes, factors, medi
 # Rendering loader page
 @app.route("/", methods=['GET', 'POST'])
 def load():
+    print("Loading the loader page...")
     return render_template("loader.html")
 
 # Rendering home page
@@ -84,6 +85,28 @@ def about():
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
     return render_template("contact.html")
+
+@app.route("/bmi_calculator", methods=['GET', 'POST'])
+def bmi_calculator():
+    return render_template("bmi_calculator.html")
+
+
+@app.route("/telemedicine", methods=['GET', 'POST'])
+def telemedicine():
+    return render_template("telemedicine.html")
+
+
+@app.route("/resources", methods=['GET', 'POST'])
+def resources():
+    return render_template("resourcepage.html")
+
+@app.route("/quiz", methods=['GET', 'POST'])
+def quiz():
+    return render_template("quiz.html")
+
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
 
 data = []
 

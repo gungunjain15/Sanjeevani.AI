@@ -38,5 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById("myButton").addEventListener("click", function () {
     // Open the link in a new tab or window
-    window.open("/templates/quiz.html");
+    window.open("/quiz", "_blank");
 });
+
+
+document.getElementsByClassName("chat-button").addEventListener("click", function () {
+    // Open the link in a new tab or window
+    window.open("/templates/chatbot.html");
+});
+

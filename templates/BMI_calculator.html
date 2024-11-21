@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BMI Calculator</title>
 
-    <link rel="stylesheet" href="../static/css/loader.css">
+    <!-- <link rel="stylesheet" href="../static/css/loader.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
     <style>
         :root {
             --parchment: #e8f5e9;
@@ -90,13 +91,14 @@
         <ul class="nav-buffer">
         </ul>
         <ul class="navbar-list">
-            <li><a href="loader.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="BMI_calculator.html">BMI Calculator</a></li>
-            <li><a href="telemedicine.html">Telemedicine</a></li>
-            <li><a href="resourcepage.html">Resources</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="{{ url_for('bmi_calculator') }}">BMI Calculator</a></li>
+            <li><a href="{{ url_for('telemedicine') }}">Telemedicine</a></li>
+            <li><a href="{{ url_for('resources') }}">Resources</a></li>
         </ul>
     </nav>
+    
     <div class="information">
         <h2>BMI Calculator because <br><strong>"A Healthy Mind Lives In A Healthy Body"</strong></h2>
         <div class="bmi-calculator">

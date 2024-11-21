@@ -5,13 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>replit</title>
-  <link rel="stylesheet" href="../static/css/loader.css">
+  <!-- <link rel="stylesheet" href="../static/css/loader.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
 </head>
 
 <body>
   <div class="before-nav">
     <div class="logo">
-      <img src="images/sanjeevaniai_img.png" alt="Google Logo">
+      <img src="{{ url_for('static', filename='images/sanjeevaniai_img.png') }}" alt="Google Logo">
     </div>
     <div class="marquee">
       <p>Welcome to AI DOCTOR - Revolutionizing Healthcare! Empowering you with AI-driven health support for a
@@ -25,11 +26,13 @@
     <ul class="nav-buffer">
     </ul>
     <ul class="navbar-list"> 
-        <li><a  href="loader.html">Home</a></li>
-      <li><a href="about.html">About us</a></li>
-      <li><a href="telemedicine.html">Telemedicine</a></li>
-        <li><a href=" resourcepage.html">Resources</a></li>
-      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="{{ url_for('load') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About Us</a></li>
+      <!-- <li><a href="{{ url_for('bmi_calculator') }}">BMI Calculator</a></li> -->
+      <li><a href="{{ url_for('telemedicine') }}">Telemedicine</a></li>
+      <li><a href="{{ url_for('resources') }}">Resources</a></li>
+      <!-- <li><a href="{{ url_for('faq') }}">FAQ</a></li> -->
+
     </ul>
   </nav>
   <section class="main-section" id="home">
@@ -47,7 +50,7 @@
         </div>
       </div>
       <div class="image-content">
-        <img src="images/3dpic1 (1).png" alt="doctor-image">
+        <img src="{{ url_for('static', filename='images/3dpic1 (1).png') }}" alt="doctor-image">
       </div>
     </div>
   </section>
@@ -55,7 +58,8 @@
   <section class="main-section" id="services">
     <div class="content-wrapper">
       <div class="image-content">
-        <img src="images/3dpic1 (2).png" alt="doctor-image">
+        <img src="{{ url_for('static', filename='images/3dpic1 (2).png') }}" alt="doctor-image">
+
       </div>
       <div class="text-content">
         <h1>Telemedicine</h1>
@@ -73,7 +77,8 @@
 
   <section class="main-section" id="mental-healthcare">
     <div class="mental-healthcare-content">
-            <img src=" images/3dpic2(2).png" alt="mental-healthcare">
+      <img src="{{ url_for('static', filename='images/3dpic2(2).png') }}" alt="mental-healthcare">
+
       <h1>Mental Healthcare</h1>
       <p>Welcome to our website, where we provide resources and support for individuals seeking help with their mental
         health. We understand that mental health is a crucial aspect of overall wellbeing, and we believe that everyone

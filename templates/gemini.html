@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chatbot</title>
+    <link rel="stylesheet" href="../static/css/gemini.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="chat-window">
+            <div class="chat-header">
+                <h2>Gemini ChatBot</h2>
+            </div>
+            <div class="chat-box" id="chatBox">
+                {% for item in data %}
+                    <div class="message user-message">
+                        <p>{{ item.input }}</p>
+                    </div>
+                    <div class="message bot-message">
+                        <p>{{ item.result }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <form action="{{ url_for('text') }}" method="POST" id="chatForm">
+                <input type="text" name="text" id="chatInput" placeholder="Enter your symptoms or questions..." required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Scroll to the bottom of the chat window when a new message is added
+        $(document).ready(function() {
+            var chatBox = $('#chatBox');
+            chatBox.scrollTop(chatBox[0].scrollHeight);
+        });
+    </script>
+</body>
+</html>

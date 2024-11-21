@@ -29,9 +29,10 @@
       <p class="logo-title">Gemini<span class="rainbow-text"> ChatBot</span></p>
     </span>
     <nav class="navigation">
-      <a href="loader.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="{{ url_for('load') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+      
       <button class="started" id="started-button">Get Started</button>
     </nav>
   </header>

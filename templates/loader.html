@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width">
   <title>replit</title>
 
-  <link href="static/loader.css" rel="stylesheet" type="text/css" />
+  <!-- <link href="static/loader.css" rel="stylesheet" type="text/css" /> -->
 
-  <link rel="stylesheet" href="../static/css/loader.css">
+  <!-- <link rel="stylesheet" href="../static/css/loader.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
 
 </head>
 
@@ -17,7 +18,8 @@
     <div class="logo">
 
       <!-- <img src="sanjeevaniai_img.png" alt="Google Logo"> -->
-      <img src="images/sanjeevaniai_img.png" alt="Google Logo">
+      <!-- <img src="images/sanjeevaniai_img.png" alt="Google Logo"> -->
+      <img src="{{ url_for('static', filename='images/sanjeevaniai_img.png') }}" alt="Sanjeevania AI">
       <!-- <svg preserveAspectRatio="xMidYMid meet" data-bbox="0 -0.001 1810.72 219.101" viewBox="0 0 1810.72 219.06" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" data-type="ugc" role="img" aria-label="Argogya Logo">…</svg> -->
 
     </div>
@@ -29,62 +31,69 @@
       <a href="login.html"><button>Login / Signup</button></a>
     </div>
   </div>
+
   <nav id="navbar">
     <ul class="nav-buffer">
     </ul>
-    <ul class="navbar-list"> 
-        <li><a  href="loader.html">Home</a></li>
-      <li><a href="about.html">About us</a></li>
-      <li><a href="BMI_calculator.html">BMI Calculator</a></li>
-      <li><a href="telemedicine.html">Telemedicine</a></li>
-        <li><a href="resourcepage.html">Resources</a></li>
-        
-      <!-- <li><a href="faq.html">FAQ</a></li> -->
+    <ul class="navbar-list" style="justify-content: space-around;"> 
+      <li><a href="{{ url_for('load') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About Us</a></li>
+      <li><a href="{{ url_for('bmi_calculator') }}">BMI Calculator</a></li>
+      <li><a href="{{ url_for('telemedicine') }}">Telemedicine</a></li>
+      <li><a href="{{ url_for('resources') }}">Resources</a></li>
+      <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+
     </ul>
   </nav>
   <div class="main">
     <div class="first-page">
-      <img src="images/000.png" alt="Google Logo">
-      <button class="chat-button"></button>
-      <button class="assessment-btn" id="myButton" ></button>
+      <img src="{{ url_for('static', filename='images/000.png') }}" alt="Google Logo">
+      <button class="chat-button" >Chat Button</button>
+      <button class="assessment-btn" id="myButton"> assessment-btn</button>
     </div>
     <div class="slider-buffer">
       <div class="hero-slider">
         <div class="slider">
           <div class="slide">
-            <img src="images/001.png" alt="Suggestion 1">
+            <img src="{{ url_for('static', filename='images/001.png') }}" alt="Suggestion 1">
+
           </div>
           <div class="slide">
-            <img src="images/002.png" alt="Suggestion 2">
+            <img src="{{ url_for('static', filename='images/002.png') }}" alt="Suggestion 2">
+
           </div>
           <div class="slide">
-            <img src="images/003.png" alt="Suggestion 3">
+            <img src="{{ url_for('static', filename='images/003.png') }}" alt="Suggestion 3">
+
           </div>
 
           <div class="slide">
-            <img src="images/004.png" alt="Suggestion 4">
+            <img src="{{ url_for('static', filename='images/004.png') }}" alt="Suggestion 4">
+
           </div>
           <div class="slide">
-            <img src="images/005.png" alt="Suggestion 5">
+            <img src="{{ url_for('static', filename='images/005.png') }}" alt="Suggestion 5">
           </div>
           <div class="slide">
-            <img src="images/006.png" alt="Suggestion 6">
+            <img src="{{ url_for('static', filename='images/006.png') }}" alt="Suggestion 6">
           </div>
 
           <div class="slide">
-            <img src="images/007.png" alt="Suggestion 7">
+            <img src="{{ url_for('static', filename='images/007.png') }}" alt="Suggestion 7">
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="last-page">
-    <img src="images/008.png">
+    <img src="{{ url_for('static', filename='images/008.png') }}" alt="Suggestion 8">
   </div>
 
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
-  <script src="../static/js/index.js"></script>
+  <!-- <script src="../static/js/index.js"></script> -->
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  
 </body> 
 
 

@@ -160,8 +160,7 @@ html {
     bottom: 10%;
     left: 2%;
     transition: all 0.5s ease-in-out;
-    ;
-    background-image: url('images/assessment.gif');
+    background-image: url("/static/images/assessment.gif");
     background-size: cover;
     background-repeat: no-repeat;
     width: 50px;
@@ -311,10 +310,10 @@ html {
 
 
 .assessment-btn {
-  height: 15vh;
-    width: 20vw;
+  width: 50px;
+    height: 60px;
   font: 2em sans-serif;
-  background-image: url('../images/assessment.gif');
+  background-image: url("/static/images/assessment.gif");
   background-size: cover;
   color: white;
   border: none;
@@ -338,7 +337,7 @@ html {
   width: 24vw;
   height: 18vh;
   border-radius: 27px;
-  background-image: url('../images/AssesmentHover.gif');
+  background-image: url('/static/images/AssesmentHover.gif');
   background-size: cover;
   background-repeat: no-repeat;
 }
