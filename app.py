@@ -17,7 +17,7 @@ app.config.from_object(Config)
 mail = Mail(app)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY","4f973a642c27d5b3ac367e1215b324a7")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-model=genai.GenerativeModel('gemini-1.0-pro-latest')
+model=genai.GenerativeModel('gemini-1.5-flash')
 
 class SymptomForm(FlaskForm):
     name = TextAreaField('What is your name?', validators=[DataRequired()])
@@ -36,34 +36,66 @@ def generate_report(name, age, gender, symptoms, start, changes, factors, medica
 
 def create_report_pdf(name, age, gender, symptoms, start, changes, factors, medications, diagnosis):
     pdf_filename = "diagnosis_report.pdf"
-    pdf = canvas.Canvas(pdf_filename,pagesize=letter)
-    width,height=letter
-    y_position = height - 50  # Starting y position
-    line_height = 14 
-    def draw_wrapped_text(pdf, text, x, y, max_width):
-        lines = simpleSplit(text, 'Helvetica', 12, max_width)
+    pdf = canvas.Canvas(pdf_filename, pagesize=letter)
+    width, height = letter
+
+    # Define starting position and line height
+    y_position = height - 100  # Set initial position lower for the header
+    line_height = 14
+
+    # Function to add wrapped text to the PDF with some improvements in text layout
+    def draw_wrapped_text(pdf, text, x, y, max_width, font_size=12, bold=False):
+        # Apply bold if specified
+        if bold:
+            pdf.setFont("Helvetica-Bold", font_size)
+        else:
+            pdf.setFont("Helvetica", font_size)
+        
+        # Wrap the text and display it
+        lines = simpleSplit(text, 'Helvetica', font_size, max_width)
         for line in lines:
             pdf.drawString(x, y, line)
             y -= line_height
             if y < 50:  # Check if we need to start a new page
                 pdf.showPage()
-                pdf.setFont("Helvetica", 12)
+                pdf.setFont("Helvetica", font_size)
                 y = height - 50
         return y
-    pdf.setFont("Helvetica", 12)
-    y_position = draw_wrapped_text(pdf, f"Patient Name: {name}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Age: {age}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Gender: {gender}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Symptoms: {symptoms}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Symptom Start: {start}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Changes: {changes}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Factors: {factors}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Medications: {medications}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, f"Diagnosis: {diagnosis}", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, "Based on these inputs, a preliminary diagnosis suggests that the patient might be experiencing these conditions.", 100, y_position, width - 150)
-    y_position = draw_wrapped_text(pdf, "Please consult with a healthcare professional for an accurate diagnosis.", 100, y_position, width - 150)
+
+    # Adding a title or header
+    pdf.setFont("Helvetica-Bold", 16)
+    y_position = draw_wrapped_text(pdf, "Patient Diagnosis Report", 100, y_position, width - 150, font_size=16, bold=True)
+
+    # Adding Patient Information section
+    y_position = draw_wrapped_text(pdf, f"Patient Name: {name}", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"Age: {age}", 100, y_position, width - 150, font_size=12)
+    y_position = draw_wrapped_text(pdf, f"Gender: {gender}", 100, y_position, width - 150, font_size=12)
+
+    # Adding Symptom Information
+    y_position = draw_wrapped_text(pdf, "Symptoms:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{symptoms}", 100, y_position, width - 150, font_size=12)
+    
+    y_position = draw_wrapped_text(pdf, "Symptom Start:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{start}", 100, y_position, width - 150, font_size=12)
+
+    y_position = draw_wrapped_text(pdf, "Changes Over Time:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{changes}", 100, y_position, width - 150, font_size=12)
+
+    y_position = draw_wrapped_text(pdf, "Factors Affecting Symptoms:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{factors}", 100, y_position, width - 150, font_size=12)
+
+    y_position = draw_wrapped_text(pdf, "Medications:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{medications}", 100, y_position, width - 150, font_size=12)
+
+    # Adding Diagnosis Section
+    y_position = draw_wrapped_text(pdf, "Diagnosis & Recommendations:", 100, y_position, width - 150, font_size=12, bold=True)
+    y_position = draw_wrapped_text(pdf, f"{diagnosis}", 100, y_position, width - 150, font_size=12)
+
+    # Closing the PDF
     pdf.save()
+
     return pdf_filename
+
 
 # Rendering loader page
 @app.route("/", methods=['GET', 'POST'])
@@ -104,6 +136,10 @@ def resources():
 def quiz():
     return render_template("quiz.html")
 
+@app.route("/chatbot", methods=['GET', 'POST'])
+def chatbot():
+    return render_template("chatbot.html")
+
 @app.route("/faq")
 def faq():
     return render_template("faq.html")
@@ -112,7 +148,7 @@ data = []
 
 # Endpoint to handle text and store it in the session (chatbot)
 @app.route('/form', methods=['GET', 'POST'])
-def gemini():
+def form():
     form = SymptomForm()
     if form.validate_on_submit():
         name = form.name.data
@@ -152,32 +188,41 @@ def generate_pdf():
     else:
         flash("No diagnosis found. Please provide symptoms first.", "error")
         return redirect(url_for('gemini'))
-@app.route("/gemini", methods=['GET', 'POST'])
-def text():
+    
+def generate_content(input_text):
+    predefined_responses = {
+        "hello": "Hi there! How can I help you today?",
+        "symptoms": "Please describe your symptoms in detail.",
+        "thank you": "You're welcome! Feel free to ask if you have more questions.",
+    }
 
+    # Simple keyword-based response
+    response = predefined_responses.get(input_text.lower(), "I'm not sure about that. Can you ask something else?")
+    return response
+
+
+@app.route("/gemini", methods=['GET', 'POST'])
+def gemini():
     data = session.get('data', [])
 
     if request.method == "POST":
         input_text = request.form.get("text")
 
         if input_text:
-            # Using generative AI model to generate content
+            # Generate response using the generate_content function
+            response = generate_content(input_text)
 
-            response = model.generate_content(input_text)
-
-            text_result = response.text
-
-            data.append({'input': input_text, 'result': text_result})
+            # Append user input and bot response to session data
+            data.append({'input': input_text, 'result': response})
             session['data'] = data
 
-            return redirect(url_for('text'))
+            return redirect(url_for('gemini'))
 
         else:
             flash("Please provide a valid input!", "error")
 
-    return render_template("index.html", data=data[::-1])  # Reverse data for display
-
+    return render_template("gemini.html", data=data[::-1])  # Reverse data for display
 # ... Existing routes for logout, sending email (/logout, /send-mail)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(Debug=True)

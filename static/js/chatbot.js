@@ -1,43 +1,55 @@
-const MODEL_NAME = "text-bison@001"; // Replace "gemini-l.e-pro" with Google Vertex AI model
-const API_KEY = "AlzaSyCgbdDzk5iBJDMk-dcNvyM7k9wsAihZctc"; // Replace with your Google API key
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-async function callVertexAI(query) {
-  const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR_PROJECT_ID/locations/us-central1/publishers/google/models/${MODEL_NAME}:predict`;
+const sendMessage = document.querySelector(".chat-input span");
+const chatInput = document.querySelector(".chat-input textarea");
+const chatbox = document.querySelector(".chatbox");
+const chatbotToggler = document.querySelector(".chatbot-toggler");
 
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${API_KEY}`, // Use your API key
-  };
+let userMessage;
 
-  const body = JSON.stringify({
-    instances: [{ content: query }], // Your query to the model
-    parameters: {
-      temperature: 0.7, // Adjust for creativity
-      maxOutputTokens: 300, // Limit output length
-    },
+// Gemini API key
+const API_KEY = "AIzaSyCOmWvgJJpt891TQI7tUZQiVsiKJma0H1Y";
+const genAI = new GoogleGenerativeAI("AIzaSyCOmWvgJJpt891TQI7tUZQiVsiKJma0H1Y");
+
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+const chat = model.startChat({
+  history: [],
+  generationConfig: {
+    maxOutputTokens: 25,
+  },
+});
+
+const createChatLi = (message, className) => {
+  const chatLi = document.createElement("li");
+  chatLi.classList.add("chat", className);
+  let chatContent = className == "incoming" ? <span class="material-symbols-outlined">smart_toy</span><p>${message}</p> : <p>${message}</p>;
+  chatLi.innerHTML = chatContent;
+  return chatLi;
+};
+
+const generateResponse = (chatLi) => {
+
+  chat.sendMessage(userMessage).then((response) => {
+    const msg = response.response.candidates[0].content.parts[0].text;
+    chatLi.innerHTML = <span class="material-symbols-outlined">smart_toy</span><p>${msg}</p>;
   });
+};
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: body,
-    });
+const handleChat = () => {
+  userMessage = chatInput.value;
+  if (!userMessage) return;
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
-    }
+  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+  chatInput.value = "";
+  setTimeout(() => {
+    const chatLi = createChatLi("THINKING...", "incoming");
+    chatbox.appendChild(chatLi);
+    generateResponse(chatLi);
+  }, 1000);
+};
 
-    const data = await response.json();
-
-    // Display the fetched response
-    console.log("Model response:", data.predictions[0].content);
-    return data.predictions[0].content.trim(); // Return response content
-  } catch (error) {
-    console.error("Error:", error.message);
-    return `Error: ${error.message}`;
-  }
-}
-
-// Test the function
-callVertexAI("What are some home remedies for headaches?");
+sendMessage.addEventListener("click", handleChat);
+chatbotToggler.addEventListener("click", () =>
+  document.body.classList.toggle("show-chatbot")
+);

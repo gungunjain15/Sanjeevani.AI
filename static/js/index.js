@@ -42,8 +42,8 @@ document.getElementById("myButton").addEventListener("click", function () {
 });
 
 
-document.getElementsByClassName("chat-button").addEventListener("click", function () {
+document.getElementById("mybutton1").addEventListener("click", function () {
     // Open the link in a new tab or window
-    window.open("/templates/chatbot.html");
+    window.open("/chatbot", "_blank");
 });
 

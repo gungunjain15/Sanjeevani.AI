@@ -19,25 +19,26 @@
     />
     <title>Home</title>
   </head>
-  <header>
-    <span class="logo-div">
-      <img
-        class="logo"
-        src="{{ url_for('static', filename='images/chatbot.jpg') }}"
-        alt=""
-      />
-      <p class="logo-title">Gemini<span class="rainbow-text"> ChatBot</span></p>
-    </span>
-    <nav class="navigation">
-      <a href="{{ url_for('load') }}">Home</a>
-      <a href="{{ url_for('about') }}">About</a>
-      <a href="{{ url_for('contact') }}">Contact</a>
-      
-      <button class="started" id="started-button">Get Started</button>
-    </nav>
-  </header>
   <body>
-    <div class="loader"></div>
+    <header>
+      <span class="logo-div">
+        <!-- <img
+          class="logo"
+          src="{{ url_for('static', filename='images/chatbot.jpg') }}"
+          alt=""
+        /> -->
+        <p class="logo-title">Gemini<span class="rainbow-text"> ChatBot</span></p>
+      </span>
+      <nav class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('gemini') }}">ChatBot</a>
+      </nav>
+    </header>
+    <div class="welcome-message">
+        <h1>Welcome to Gemini ChatBot!</h1>
+        <p>Enter your symptoms or questions to get started with the chatbot.</p>
+        <a href="{{ url_for('gemini') }}" class="button">Start Chatting</a>
+    </div>
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
   </body>
 </html>

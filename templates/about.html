@@ -12,33 +12,158 @@
       type="image/jpg"
       href="{{ url_for('static', filename='images/chatbot.jpg') }}"
     />
-    <!-- <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/about.css') }}"
-    /> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 
     <title>About</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #eaf6ea; /* Light green background */
+        margin: 0;
+        padding: 0;
+        padding-top: 80px; /* Space for the fixed header */
+      }
+
+      header {
+        background-color: #28a745; /* Green header */
+        color: white;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000; /* Ensure the header stays on top */
+      }
+
+      .logo-div {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-left: 10px;
+        letter-spacing: 1px;
+      }
+
+      .rainbow-text {
+        color: #f6c9ff;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+        transition: color 0.3s ease;
+      }
+
+      nav a:hover {
+        color: #f6c9ff;
+      }
+
+      .started {
+        background-color: #f6c9ff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .started:hover {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .wrapper {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .card {
+        background-color: white; /* White card background */
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+      }
+
+      .icon {
+        background-color: #28a745; /* Green icon background */
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        font-size: 20px;
+      }
+
+      .description h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .description p {
+        font-size: 14px;
+        color: #555;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+    </style>
   </head>
-  <header>
-    <span class="logo-div">
-      <!-- <img
-        class="logo"
-        src="{{ url_for('static', filename='images/chatbot.jpg') }}"
-        alt=""
-      /> -->
-      <p class="logo-title">Gemini<span class="rainbow-text"> ChatBot</span></p>
-    </span>
-    <nav class="navigation">
-      <a href="{{ url_for('home') }}">Home</a>
-      <a href="{{ url_for('about') }}">About</a>
-      <a href="{{ url_for('contact') }}">Contact</a>
-      <a href="{{ url_for('gemini') }}"><button class="started" id="started-button">Get Started</button></a>
-  </nav>
-  
-  </header>
+
   <body>
+    <header>
+      <span class="logo-div">
+        <p class="logo-title">Report<span class="rainbow-text">Generator</span></p>
+      </span>
+      <nav class="navigation">
+        <a href="{{ url_for('load') }}">Home</a>
+        <a href="{{ url_for('bmi_calculator') }}">BMI Calculator</a>
+        <a href="{{ url_for('chatbot') }}">Chatbot</a>
+        <a href="{{ url_for('gemini') }}">Ask Query</a>
+
+        <a href="{{ url_for('form') }}">
+          <button class="started" id="started-button">Get Started</button>
+        </a>
+      </nav>
+    </header>
+
     <div class="wrapper">
       <div class="container">
         <input type="radio" name="slide" id="c1" checked />
@@ -51,6 +176,7 @@
             </div>
           </div>
         </label>
+
         <input type="radio" name="slide" id="c2" />
         <label for="c2" class="card">
           <div class="row">
@@ -61,6 +187,7 @@
             </div>
           </div>
         </label>
+
         <input type="radio" name="slide" id="c3" />
         <label for="c3" class="card">
           <div class="row">
@@ -73,6 +200,7 @@
         </label>
       </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </body>
 </html>
